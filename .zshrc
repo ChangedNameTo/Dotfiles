@@ -83,4 +83,59 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias mtaile='multitail -CS php --mergeall /var/log/httpd/$1*-error_log'
+alias ll="ls -la"
 
+function applyalters()
+{
+    ~/linux_utils/apply_alters/./apply_alters.pl \
+        --dbhost $( echo $( sed '1q;d' $PWD/.db ) ) \
+        --dbname $( echo $( sed '3q;d' $PWD/.db ) ) \
+        --new_branch $( echo $( git rev-parse --abbrev-ref HEAD ) ) \
+        --path_to_sql $( echo $PWD/sql ) \
+        --customer $( sed '1q;d' $PWD/.customer ) \
+        --dbport $( echo $( sed '2q;d' $PWD/.db ) ) \
+        --apply_all_unversioned
+}
+# With no parameters, changes into vhosts directory
+# With one parameter, changes into a subdirectory of the vhosts
+# directory that starts with that string
+# e.g.: v ises   (changes into /var/www/vhosts/ises.*.neadwerx.com)
+function v () {
+    setopt local_options SH_WORD_SPLIT
+
+    if [ -n "$1" ] ; then
+        cd /var/www/vhosts/$1*
+    else
+        cd /var/www/vhosts
+    fi
+    [ -d .git ] && {
+        if [ $UID -ne 0 ] ; then
+            git_pull
+        fi
+        g status
+    }
+}
+
+# Tail access log of site starting with a string
+# e.g.: taila ises   (tails access log of ises.*.neadwerx.com)
+function taila () {
+    setopt local_options SH_WORD_SPLIT
+
+    tail -f /var/log/httpd/$1*-access_log
+}
+
+# Tail error log of site starting with a string
+# e.g.: taile ises   (tails error log of ises.*.neadwerx.com)
+function taile () {
+    setopt local_options SH_WORD_SPLIT
+
+    tail -f /var/log/httpd/$1*-error_log
+}
+
+function zsh_stats() {
+  fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
+}
+
+
+# G script
+source /etc/profile.d/zsh/g_script
