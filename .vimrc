@@ -94,7 +94,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 "Set auto and smart indent, as well as handle curly brace cursor placement
 "set autoindent
-set smartindent
 imap <C-Return> <CR><CR><C-o>k<Tab>
 
 "Keep 4 lines at bottom of screen below the cursor

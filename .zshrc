@@ -80,22 +80,33 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias mtaile='multitail -CS php --mergeall /var/log/httpd/$1*-error_log'
 alias ll="ls -la"
+alias zshconfig="vim ~/.zshrc"
+alias aa=applyalters
 
 function applyalters()
 {
+    # Grab the webroot: webroot must end in '.com'
+    local path=$( echo $PWD | sed 's/\(com\/\).*/\1/g')
+    local test_file=""
+
+    # Check if file path was passed in for running test mode
+    if [ $1 ]; then
+        test_file="--test $1"
+    fi
+
     ~/linux_utils/apply_alters/./apply_alters.pl \
-        --dbhost $( echo $( sed '1q;d' $PWD/.db ) ) \
-        --dbname $( echo $( sed '3q;d' $PWD/.db ) ) \
+        --dbhost $( echo $( sed '1q;d' $path/.db ) ) \
+        --dbname $( echo $( sed '3q;d' $path/.db ) ) \
         --new_branch $( echo $( git rev-parse --abbrev-ref HEAD ) ) \
-        --path_to_sql $( echo $PWD/sql ) \
-        --customer $( sed '1q;d' $PWD/.customer ) \
-        --dbport $( echo $( sed '2q;d' $PWD/.db ) ) \
-        --apply_all_unversioned
+        --path_to_sql $( echo $path/sql ) \
+        --customer $( sed '1q;d' $path/.customer ) \
+        --dbport $( echo $( sed '2q;d' $path/.db ) ) \
+        --apply_all_unversioned \
+        $test_file
 }
+
 # With no parameters, changes into vhosts directory
 # With one parameter, changes into a subdirectory of the vhosts
 # directory that starts with that string
