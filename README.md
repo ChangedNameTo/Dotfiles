@@ -19,7 +19,31 @@ If you just want the .zshrc
 
 If you just want the .vimrc
 
-    git clone https://github.com/ChangedNameTo/Dotfiles.git ~/.ChangedNameTo-dotfiles; ~/.ChangedNameTo-dotfiles/zsh_setup.sh
+    git clone https://github.com/ChangedNameTo/Dotfiles.git ~/.ChangedNameTo-dotfiles; ~/.ChangedNameTo-dotfiles/vim_setup.sh
+    
+Vim Plugins
+-----------
+Like my plugins but hate me, or just interested in what magic is bundled? Go find the github repos for these:
+* vim-airline/vim-airline
+* ywjno/vim-tommorrow-theme
+* kien/rainbow_parentheses.vim
+* SirVer/ultisnips
+* kshenoy/vim-signature
+* tpope/vim-commentary
+* tpope/vim-fugitive
+* scroolose/nerdtree
+* airblade/vim-gitgutter
+* junegunn/vim-easy-align
+* Raimondi/delimitMate
+* scrooloose/syntastic
+* shawncplus/phpcomplete.vim
+* mustache/vim-mustache-handlebars
+* pangloss/vim-javascript
+* 1995eaton/vim-better-javascript-completion
+* slim-template/vim-slim
+* radoskyb/vim-rubyformat
+* tpope/vim-rails
+* tpope/vim-endwise
 
 Screenshots
 -----------
