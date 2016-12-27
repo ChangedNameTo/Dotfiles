@@ -83,6 +83,7 @@ source $ZSH/oh-my-zsh.sh
 alias mtaile='multitail -CS php --mergeall /var/log/httpd/$1*-error_log'
 alias ll="ls -la"
 alias zshconfig="vim ~/.zshrc"
+alias vimconfig="vim ~/.vimrc"
 alias aa=applyalters
 alias party="~/terminal-parrot/./parrot -delay 50"
 alias gadd="git add . && git status"
