@@ -1,25 +1,21 @@
 call plug#begin('~/.vim/plugged')
 
+" ####################
+" # Makes Vim Pretty #
+" ####################
+
 "vim-airline/vim-airline: Vim Airline"
 Plug 'vim-airline/vim-airline'
-
-"Make commenting easier
-Plug 'tpope/vim-commentary'
-
-"Git
-Plug 'tpope/vim-fugitive'
-
-"Easy Align
-Plug 'junegunn/vim-easy-align'
-
-"Automatic inserting of delimiters
-Plug 'Raimondi/delimitMate'
 
 "Best colorscheme NA
 Plug 'ywjno/vim-tomorrow-theme'
 
-"Syntax checking for files
-Plug 'scrooloose/syntastic'
+" Highlight parentheses
+Plug 'kien/rainbow_parentheses.vim'
+
+" ####################
+" # Makes Vim Easier #
+" ####################
 
 "UltiSnips
 Plug 'SirVer/ultisnips'
@@ -27,14 +23,67 @@ Plug 'SirVer/ultisnips'
 "vim-signatur
 Plug 'kshenoy/vim-signature'
 
+"Make commenting easier
+Plug 'tpope/vim-commentary'
+
+"Git
+Plug 'tpope/vim-fugitive'
+
+"Trees don't look completely hideous
+Plug 'scrooloose/nerdtree'
+
+"Git diff signs on the left of the screen
+Plug 'airblade/vim-gitgutter'
+
+" ##################################
+" # Useful stuff for all languages #
+" #################################
+
+"Easy Align
+Plug 'junegunn/vim-easy-align'
+
+"Automatic inserting of delimiters
+Plug 'Raimondi/delimitMate'
+
+"Syntax checking for files
+Plug 'scrooloose/syntastic'
+
+" #############
+" # PHP Stuff #
+" #############
+
 "PHP Omnicomplete
 Plug 'shawncplus/phpcomplete.vim',{'for':'php'}
 
-" Highlight parentheses
-Plug 'kien/rainbow_parentheses.vim'
-
 " Handlebars syntax highlighting and filetype detection
 Plug 'mustache/vim-mustache-handlebars', { 'for': 'hbs' }
+
+" ############
+" # JS Stuff #
+" ############
+
+" Better syntax highlighting for JS
+Plug 'pangloss/vim-javascript'
+
+" Much more robust autocompletion for JS
+Plug '1995eaton/vim-better-javascript-completion'
+
+" ##############
+" # Ruby Stuff #
+" ##############
+
+" Slim syntax highlighting
+Plug 'slim-template/vim-slim'
+
+" Makes your ruby code match standard when you save
+Plug 'vim-rubyformat'
+
+" Rails
+Plug 'tpope/vim-rails'
+
+" Ruby end of line matching
+Plug 'tpope/vim-endwise'
+
 
 call plug#end()
 
@@ -42,7 +91,9 @@ call plug#end()
 
 execute pathogen#infect()
 
-"GENERAL SETTINGS
+"####################
+"# GENERAL SETTINGS #
+"####################
 
 "map semicolon to colon
 nmap ; :
@@ -89,11 +140,15 @@ set softtabstop=0
 set expandtab
 set shiftwidth=4
 
+" For ruby dev automatically changes the line spacing
+autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab
+
 "Deletes all trailing white space on save
 autocmd BufWritePre * :%s/\s\+$//e
 
 "Set auto and smart indent, as well as handle curly brace cursor placement
 "set autoindent
+set smartindent
 imap <C-Return> <CR><CR><C-o>k<Tab>
 
 "Keep 4 lines at bottom of screen below the cursor
@@ -103,6 +158,9 @@ set scrolloff=4
 set incsearch
 set hlsearch
 
+"###################
+"# Powerline Setup #
+"###################
 if has('gui_running')
     set guifont=Menlo\ for\ Powerline\ RegularForPowerline\ 10
 endif
@@ -137,8 +195,6 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
-
-
 "vim-airline setting"
 set laststatus=2
 
@@ -149,6 +205,22 @@ set encoding=utf-8
 " colours)
 set t_Co=256
 
+"################
+"# Plugin Setup #
+"################
+
+"===================================================================================================
+
+" Git Gutter
+
+" Git gutter on by default
+let g:gitgutter_enabled = 1
+
+" Git gutter update on buffer
+let g:gitgutter_eager = 1
+
+"===================================================================================================
+
 " YouCompleteMe
 if !exists('g:ycm_semantic_triggers')
       let g:ycm_semantic_triggers = {}
@@ -156,6 +228,8 @@ if !exists('g:ycm_semantic_triggers')
   let g:ycm_semantic_triggers.tex = [
         \ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*, ?)*'
         \ ]
+
+"===================================================================================================
 
 " RainbowParentheses
 let g:rbpt_colorpairs = [
@@ -180,6 +254,8 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+"===================================================================================================
 
  " Syntastic
 let $PATH.=';/etc/profile.d/vim/neadwerx_plugins/syntastic_checkers/'
@@ -274,6 +350,7 @@ au Filetype php let g:syntastic_aggregate_errors=0
 au Filetype perl let g:syntastic_aggregate_errors=0
 au Filetype perl nnoremap <silent> <F7> :call PerlTidy()<CR>
 
+"===================================================================================================
 
 " EasyAlign
 vmap ga <Plug>(EasyAlign)
@@ -348,3 +425,5 @@ let g:easy_align_delimiters =
     \       'stick_to_left': 0
     \      },
     \ }
+
+"===================================================================================================
