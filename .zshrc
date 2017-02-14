@@ -88,6 +88,7 @@ alias aa=applyalters
 alias party="~/terminal-parrot/./parrot -delay 50"
 alias gadd="git add . && git status"
 alias gdiff="git diff --cached"
+alias clear="clear && git status && ls"
 
 function applyalters()
 {
@@ -155,3 +156,6 @@ function zsh_stats() {
 source /etc/profile.d/zsh/g_script
 
 [[ -s "/home/will/.gvm/scripts/gvm" ]] && source "/home/will/.gvm/scripts/gvm"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
