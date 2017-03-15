@@ -89,6 +89,8 @@ alias party="~/terminal-parrot/./parrot -delay 50"
 alias gadd="git add . && git status"
 alias gdiff="git diff --cached"
 alias clear="clear && git status && ls"
+alias glog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat"
+alias top="htop"
 
 function applyalters()
 {
@@ -110,6 +112,20 @@ function applyalters()
         --dbport $( echo $( sed '2q;d' $path/.db ) ) \
         --apply_all_unversioned \
         $test_file
+}
+
+# JS fix fixes all of the files marked by the file path for you so you don't have
+# to write out the entire function yourself
+function jsfix()
+{
+    # Path to the neadwerx profile repo
+    local neadpath=$( echo /etc/profile.d/vimrc/plugins/syntastic_checkers/eslintrc.js )
+
+    # Name of the file to be fixed
+    fix_file="$1"
+
+    # Calls the command
+    eslint -c $neadpath $fix_file --fix
 }
 
 # With no parameters, changes into vhosts directory

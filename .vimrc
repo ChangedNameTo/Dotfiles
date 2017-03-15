@@ -84,6 +84,12 @@ Plug 'tpope/vim-rails'
 " Ruby end of line matching
 Plug 'tpope/vim-endwise'
 
+" #############
+" # SQL Stuff #
+" #############
+
+" Auto capitalization of SQL keyword when in SQL files
+Plug 'hjkatz/sql_iabbr'
 
 call plug#end()
 
