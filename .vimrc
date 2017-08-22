@@ -89,7 +89,7 @@ Plug 'tpope/vim-endwise'
 " #############
 
 " Auto capitalization of SQL keyword when in SQL files
-Plug 'hjkatz/sql_iabbr'
+Plug 'hjkatz/sql_iabbr', { 'for': 'sql' }
 
 call plug#end()
 
@@ -272,7 +272,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 "===================================================================================================
 
- " Syntastic
+" Syntastic
 source /etc/profile.d/vimrc/plugins/syntastic.vim
 
 set statusline+=%#warningmsg#

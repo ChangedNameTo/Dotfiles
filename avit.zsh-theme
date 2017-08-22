@@ -1,6 +1,7 @@
 # AVIT ZSH Theme
 
 PROMPT='
+$(neadwerx_git_prompt)
 $(_user_host)${_current_dir} $(git_prompt_info) $(_ruby_version)
 ▶ '
 

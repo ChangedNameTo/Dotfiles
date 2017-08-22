@@ -91,6 +91,9 @@ alias gdiff="git diff --cached"
 alias clear="clear && git status && ls"
 alias glog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat"
 alias top="htop"
+alias aa_ava="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/avalon.will.neadwerx.com --apply_all_unversioned --automate'"
+alias aa_mlx="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/mlx.will.neadwerx.com --apply_all_unversioned --automate'"
+alias aa_scy="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/scythe.will.neadwerx.com --apply_all_unversioned --automate'"
 
 function applyalters()
 {
@@ -168,9 +171,9 @@ function zsh_stats() {
   fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 }
 
-# G script
-source /etc/profile.d/zsh/g_script
+source '/etc/profile.d/git/git-prompt.sh'
 
+# Idk what this does but it's important
 [[ -s "/home/will/.gvm/scripts/gvm" ]] && source "/home/will/.gvm/scripts/gvm"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
