@@ -1,0 +1,21 @@
+\set QUIET
+\set ON_ERROR_ROLLBACK interactive
+\set ON_ERROR_STOP on
+\pset format wrapped
+\pset null '(null)'
+\set PROMPT1 '%n@%[%033[1m%]%`echo $HOST`=>%m%[%033[0m%]:%[%033[1m%]%/%[%033[0m%]%R%x%# '
+\set PROMPT2 '%n@%[%033[1m%]%`echo $HOST`=>%m%[%033[0m%]:%[%033[1m%]%/%[%033[0m%]%R%x%# '
+--\set PROMPT1 '%[%033[1;37m%]%/%R%x%#%[%033[0m%] '
+\set HISTSIZE 10000
+\set HISTCONTROL ignoredups
+\timing on
+\unset QUIET
+
+\set pgqueries 'select db, pid, t_run, q_run, status, application_name, query from vw_queries;'
+
+\set entity 'select * from tb_entity where email_address ilike'
+\set roles 'select role,label,description,abbreviation,rank from tb_role order by rank'
+\set tedrick 'select distinct e.email_address from tb_entity e join tb_line_item li on li.creator = e.entity where li.transmit_order = '
+\set drop_function 'select ''DROP FUNCTION '' || n.nspname  || ''.'' || p.proname || ''('' || pg_catalog.pg_get_function_identity_arguments(p.oid) || '');'' from pg_catalog.pg_proc p left join pg_catalog.pg_namespace n ON n.oid = p.pronamespace where pg_catalog.pg_function_is_visible(p.oid) and p.proname ilike'
+\set logwhere 'select recorded, uid, user_email, txid, description, table_schema, table_name, column_name, pk_vals, op, old_value, new_value from cyanaudit.vw_audit_log where'
+
