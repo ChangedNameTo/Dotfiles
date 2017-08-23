@@ -140,24 +140,24 @@ colorscheme Tomorrow-Night
 " Toggle line numbers with F4
 noremap <F4> :set invnumber invrelativenumber<CR>
 
-"Convert tabs to 4 spaces
+" Convert tabs to 4 spaces
 set tabstop=4
 set softtabstop=0
 set expandtab
 set shiftwidth=4
 
-" For ruby dev automatically changes the line spacing
+" For ruby on rails dev automatically changes the line spacing
 autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab
 
-"Deletes all trailing white space on save
+" Deletes all trailing white space on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-"Set auto and smart indent, as well as handle curly brace cursor placement
-"set autoindent
+" Set auto and smart indent, as well as handle curly brace cursor placement
+" set autoindent
 set smartindent
 imap <C-Return> <CR><CR><C-o>k<Tab>
 
-"Keep 4 lines at bottom of screen below the cursor
+" Keep 4 lines at bottom of screen below the cursor
 set scrolloff=4
 
 " return to same line when reopening a file
@@ -169,7 +169,18 @@ augroup line_return
         \ endif
 augroup END
 
-"Improve searching to highlight and move cursor as you type your search
+" Persistent undo
+
+if has('persistent_undo')
+    let myUndoDir = expand(vimDir . '/undodir')
+    " Create dirs
+    call system('mkdir ' . vimDir)
+    call system('mkdir ' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
+endif
+
+" Improve searching to highlight and move cursor as you type your search
 set incsearch
 set hlsearch
 
