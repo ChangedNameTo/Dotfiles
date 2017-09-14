@@ -48,6 +48,9 @@ Plug 'Raimondi/delimitMate'
 "Syntax checking for files
 Plug 'scrooloose/syntastic'
 
+"Remove trailing whitespace
+Plug 'bronson/vim-trailing-whitespace'
+
 " #############
 " # PHP Stuff #
 " #############
@@ -62,11 +65,14 @@ Plug 'mustache/vim-mustache-handlebars', { 'for': 'hbs' }
 " # JS Stuff #
 " ############
 
-" Better syntax highlighting for JS
+"Better syntax highlighting for JS
 Plug 'pangloss/vim-javascript'
 
-" Much more robust autocompletion for JS
+"Much more robust autocompletion for JS
 Plug '1995eaton/vim-better-javascript-completion'
+
+"jQuery Syntax
+Plug 'nono/jquery.vim'
 
 " ##############
 " # Ruby Stuff #
@@ -89,7 +95,7 @@ Plug 'tpope/vim-endwise'
 " #############
 
 " Auto capitalization of SQL keyword when in SQL files
-Plug 'hjkatz/sql_iabbr', { 'for': 'sql' }
+Plug 'hjkatz/sql_iabbr.vim', { 'for': 'sql' }
 
 call plug#end()
 
@@ -121,9 +127,6 @@ set showcmd
 "show matching delimiters
 set showmatch
 
-"Smart indenting
-set autoindent
-
 "Show cursor position
 set ruler
 
@@ -154,6 +157,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Set auto and smart indent, as well as handle curly brace cursor placement
 " set autoindent
+set autoindent
 set smartindent
 imap <C-Return> <CR><CR><C-o>k<Tab>
 
@@ -170,7 +174,6 @@ augroup line_return
 augroup END
 
 " Persistent undo
-
 " Put plugins and dictionaries in this dir (also on Windows)
 let vimDir = '$HOME/.vim'
 let &runtimepath.=','.vimDir
@@ -239,6 +242,13 @@ set t_Co=256
 "################
 "# Plugin Setup #
 "################
+
+"===================================================================================================
+
+" jQuery Vim
+
+" Source the syntax file
+au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 
 "===================================================================================================
 

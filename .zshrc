@@ -15,7 +15,7 @@ ZSH_THEME="avit"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -30,7 +30,7 @@ ZSH_THEME="avit"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -94,6 +94,7 @@ alias top="htop"
 alias aa_ava="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/avalon.will.neadwerx.com --apply_all_unversioned --automate'"
 alias aa_mlx="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/mlx.will.neadwerx.com --apply_all_unversioned --automate'"
 alias aa_scy="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/scythe.will.neadwerx.com --apply_all_unversioned --automate'"
+alias beth="sudo puppet agent -t"
 
 function applyalters()
 {
@@ -119,16 +120,13 @@ function applyalters()
 
 # JS fix fixes all of the files marked by the file path for you so you don't have
 # to write out the entire function yourself
-function jsfix()
-{
-    # Path to the neadwerx profile repo
-    local neadpath=$( echo /etc/profile.d/vimrc/plugins/syntastic_checkers/eslintrc.js )
-
-    # Name of the file to be fixed
+# Auto fixes javascript files marked by the neadwerx syntax and style checker for eslint.
+#
+# Called: `jsfix <file>`
+function jsfix () {
     fix_file="$1"
-
-    # Calls the command
-    eslint -c $neadpath $fix_file --fix
+    neadpath="/etc/profile.d/vimrc/plugins/syntastic_checkers/eslintrc.js"
+    eslint -c --fix "$neadpath" "$fix_file"
 }
 
 # With no parameters, changes into vhosts directory
