@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="avit"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -88,13 +88,17 @@ alias aa=applyalters
 alias party="~/terminal-parrot/./parrot -delay 50"
 alias gadd="git add . && git status"
 alias gdiff="git diff --cached"
-alias clear="clear && git status && ls"
+alias clear="clear && git status && ls && printf '\n'"
 alias glog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat"
 alias top="htop"
 alias aa_ava="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/avalon.will.neadwerx.com --apply_all_unversioned --automate'"
 alias aa_mlx="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/mlx.will.neadwerx.com --apply_all_unversioned --automate'"
 alias aa_scy="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/scythe.will.neadwerx.com --apply_all_unversioned --automate'"
+alias aa_pan="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/pandemic.will.neadwerx.com --apply_all_unversioned --automate'"
 alias beth="sudo puppet agent -t"
+alias dbex="./auxutils/db_explorer.pl"
+alias install_sch="sudo ./perl/scheduler/install_scheduler.sh --auto"
+alias clkear="clear"
 
 function applyalters()
 {
@@ -126,7 +130,7 @@ function applyalters()
 function jsfix () {
     fix_file="$1"
     neadpath="/etc/profile.d/vimrc/plugins/syntastic_checkers/eslintrc.js"
-    eslint -c --fix "$neadpath" "$fix_file"
+    eslint --fix "$neadpath" "$fix_file"
 }
 
 # With no parameters, changes into vhosts directory
@@ -169,6 +173,9 @@ function zsh_stats() {
   fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 }
 
+# Fixes cli messups
+eval $(thefuck --alias)
+
 source '/etc/profile.d/git/git-prompt.sh'
 
 # Idk what this does but it's important
@@ -176,3 +183,5 @@ source '/etc/profile.d/git/git-prompt.sh'
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -51,6 +51,9 @@ Plug 'scrooloose/syntastic'
 "Remove trailing whitespace
 Plug 'bronson/vim-trailing-whitespace'
 
+"Prints out bars on screen to see indent matching. Think Sublime.
+Plug 'nathanaelkane/vim-indent-guides'
+
 " #############
 " # PHP Stuff #
 " #############
@@ -136,6 +139,26 @@ set pastetoggle=<F6>
 "Set a dark background
 set background=dark
 
+"Down really means go down, not just next line
+nmap j gj
+nmap k gk
+
+" Open NERDTree
+noremap <F4> :set invnumber invrelativenumber<CR>
+
+" I mistype this so it should be ignored
+nmap q: silent
+
+" I know the file changed I changed it
+set autoread
+
+" Break long linesx by word, not char
+set linebreak
+
+" Limits lines to 80 lines cause standards
+set textwidth=80
+
+"Colorscheme Stuff
 syntax enable
 let g:solarized_termcolors=256
 colorscheme Tomorrow-Night
@@ -156,9 +179,9 @@ autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Set auto and smart indent, as well as handle curly brace cursor placement
-" set autoindent
 set autoindent
-set smartindent
+set copyindent
+"set smartindent
 imap <C-Return> <CR><CR><C-o>k<Tab>
 
 " Keep 4 lines at bottom of screen below the cursor
@@ -244,6 +267,15 @@ set t_Co=256
 "################
 
 "===================================================================================================
+" Indent Guides
+let g:indent_guides_enable_on_vim_startup = 1
+set ts=4 sw=4 et
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+hi IndentGuidesOdd ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
+
+"===================================================================================================
 
 " jQuery Vim
 
@@ -264,11 +296,11 @@ let g:gitgutter_eager = 1
 
 " YouCompleteMe
 if !exists('g:ycm_semantic_triggers')
-      let g:ycm_semantic_triggers = {}
-  endif
-  let g:ycm_semantic_triggers.tex = [
-        \ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*, ?)*'
-        \ ]
+    let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex = [
+    \ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*, ?)*'
+    \ ]
 
 "===================================================================================================
 
