@@ -173,6 +173,39 @@ function zsh_stats() {
   fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 }
 
+#updates .db and .customer files (credit to David Wright for inspiration)
+#usage: cust {customer} {db version OR ticket (if a ticket DB exists)}
+#if no second argument is supplied, uses customer named DB
+cust() {
+    first_char="$(echo $2 | head -c 1)"
+
+    #versioned databases default to {customer}_XERP-{ticket #}
+    if [ $# == 1 ]; then
+        argument_version=$( printf "%s" $1 )
+    elif [ "$first_char" == "X" ]; then
+        argument_version=$( printf "%s" $1 "_" $2)
+    else
+        #gets version by year
+        version=$(($(date +'%Y') - 2012))
+        version=$((10#${version}))
+        #parses release to two characters
+        release=$(printf %02d $2)
+        argument_version=$( printf "%s" $1 "_v" $version "." $release)
+    fi
+
+    current_customer=$1
+    current_db="athena\n5432\n$argument_version"
+
+    #if db and customer files exist, write them
+    if [ -f ./.customer ]; then
+        printf "$current_customer" > ".customer"
+    fi
+
+    if [ -f ./.db ]; then
+        printf "$current_db" > ".db"
+    fi
+}
+
 # Fixes cli messups
 eval $(thefuck --alias)
 
