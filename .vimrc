@@ -84,9 +84,6 @@ Plug 'nono/jquery.vim'
 " Slim syntax highlighting
 Plug 'slim-template/vim-slim'
 
-" Makes your ruby code match standard when you save
-Plug 'vim-rubyformat'
-
 " Rails
 Plug 'tpope/vim-rails'
 
@@ -331,7 +328,7 @@ au Syntax * RainbowParenthesesLoadBraces
 "===================================================================================================
 
 " Syntastic
-source /etc/profile.d/vimrc/plugins/syntastic.vim
+" source /etc/profile.d/vimrc/plugins/syntastic.vim
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

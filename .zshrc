@@ -206,11 +206,6 @@ cust() {
     fi
 }
 
-# Fixes cli messups
-eval $(thefuck --alias)
-
-source '/etc/profile.d/git/git-prompt.sh'
-
 # Idk what this does but it's important
 [[ -s "/home/will/.gvm/scripts/gvm" ]] && source "/home/will/.gvm/scripts/gvm"
 
@@ -218,3 +213,6 @@ source '/etc/profile.d/git/git-prompt.sh'
 export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
