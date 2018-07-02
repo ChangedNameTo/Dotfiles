@@ -81,6 +81,7 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 alias mtaile='multitail -CS php --mergeall /var/log/httpd/$1*-error_log'
+alias sshw='ssh will@will.neadwerx.com -p 22232'
 alias ll="ls -la"
 alias zshconfig="vim ~/.zshrc"
 alias vimconfig="vim ~/.vimrc"
@@ -88,7 +89,11 @@ alias aa=applyalters
 alias party="~/terminal-parrot/./parrot -delay 50"
 alias gadd="git add . && git status"
 alias gdiff="git diff --cached"
+<<<<<<< Updated upstream
 alias clear="clear && git status && ls && printf '\n'"
+=======
+alias clear="clear; git status; ls"
+>>>>>>> Stashed changes
 alias glog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat"
 alias top="htop"
 alias aa_ava="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/avalon.will.neadwerx.com --apply_all_unversioned --automate'"
@@ -121,6 +126,7 @@ function applyalters()
         --apply_all_unversioned \
         $test_file
 }
+<<<<<<< Updated upstream
 
 # JS fix fixes all of the files marked by the file path for you so you don't have
 # to write out the entire function yourself
@@ -153,6 +159,8 @@ function v () {
     }
 }
 
+=======
+>>>>>>> Stashed changes
 # Tail access log of site starting with a string
 # e.g.: taila ises   (tails access log of ises.*.neadwerx.com)
 function taila () {
@@ -173,48 +181,71 @@ function zsh_stats() {
   fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 }
 
-#updates .db and .customer files (credit to David Wright for inspiration)
-#usage: cust {customer} {db version OR ticket (if a ticket DB exists)}
-#if no second argument is supplied, uses customer named DB
-cust() {
-    first_char="$(echo $2 | head -c 1)"
-
-    #versioned databases default to {customer}_XERP-{ticket #}
-    if [ $# == 1 ]; then
-        argument_version=$( printf "%s" $1 )
-    elif [ "$first_char" == "X" ]; then
-        argument_version=$( printf "%s" $1 "_" $2)
-    else
-        #gets version by year
-        version=$(($(date +'%Y') - 2012))
-        version=$((10#${version}))
-        #parses release to two characters
-        release=$(printf %02d $2)
-        argument_version=$( printf "%s" $1 "_v" $version "." $release)
-    fi
-
-    current_customer=$1
-    current_db="athena\n5432\n$argument_version"
-
-    #if db and customer files exist, write them
-    if [ -f ./.customer ]; then
-        printf "$current_customer" > ".customer"
-    fi
-
-    if [ -f ./.db ]; then
-        printf "$current_db" > ".db"
-    fi
-}
-
-# Fixes cli messups
-eval $(thefuck --alias)
-
-source '/etc/profile.d/git/git-prompt.sh'
-
 # Idk what this does but it's important
 [[ -s "/home/will/.gvm/scripts/gvm" ]] && source "/home/will/.gvm/scripts/gvm"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Extract all tarballs
+function extract () {
+    # usage
+    if [[ -z "$1" ]] ; then
+        echo "usage: extract <file> [<dest>]"
+        echo "       Extract the file based on the extension."
+    elif [[ -f "$1" ]] ; then
+        # get the basename of the file based on extension
+        case ${(L)1} in
+            *.tar.xz)  bname=$(basename -s .tar.xz  $1) ;;
+            *.tar.bz2) bname=$(basename -s .tar.bz2 $1) ;;
+            *.tar.gz)  bname=$(basename -s .tar.gz  $1) ;;
+            *.tar)     bname=$(basename -s .tar     $1) ;;
+            *.tbz2)    bname=$(basename -s .tbz2    $1) ;;
+            *.tgz)     bname=$(basename -s .tgz     $1) ;;
+            *.jar)     bname=$(basename -s .jar     $1) ;;
+            *.zip)     bname=$(basename -s .zip     $1) ;;
+            *.7z)      bname=$(basename -s .7z      $1) ;;
+            *.bz)      bname=$(basename -s .bz      $1) ;;
+            *.bz2)     bname=$(basename -s .bz2     $1) ;;
+            *.gz)      bname=$(basename -s .gz      $1) ;;
+            *.rar)     bname=$(basename -s .rar     $1) ;;
+            *.z)       bname=$(basename -s .z       $1) ;;
+            *)         bname="$1"
+        esac
+
+        # determine the output directory
+        if [[ -z "$2" ]] ; then
+            # no dest supplied, use the bname and current directory
+            dir="$bname"
+        else
+            # dest supplied, use that + the bname
+            dir="$2/$bname"
+        fi
+
+        # ensure the directory exists for extraction
+        mkdir -p $dir
+
+        # extract
+        case ${(L)1} in
+            *.tar.xz)   tar --extract --verbose --directory $dir --file $1 ;;
+            *.tar.bz2)  tar --extract --verbose --directory $dir --file $1 ;;
+            *.tar.gz)   tar --extract --verbose --directory $dir --file $1 ;;
+            *.tar)      tar --extract --verbose --directory $dir --file $1 ;;
+            *.tbz2)     tar --extract --verbose --directory $dir --file $1 ;;
+            *.tgz)      tar --extract --verbose --directory $dir --file $1 ;;
+            *.jar)      unzip -d $dir                                   $1 ;;
+            *.zip)      unzip -d $dir                                   $1 ;;
+            *.7z)       7za e -o $dir                                   $1 ;;
+            *.(bz2|bz)) bunzip2                                         $1 ;;
+            *.gz)       gunzip                                          $1 ;;
+            *.rar)      unrar x                                         $1 ;;
+            *.z)        uncompress                                      $1 ;;
+            *)          color_echo red "Unable to extract '$1' :: Unknown extension"
+        esac
+    else
+        color_echo red "File '$1' does not exist!"
+    fi
+}
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm

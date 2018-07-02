@@ -77,6 +77,9 @@ Plug '1995eaton/vim-better-javascript-completion'
 "jQuery Syntax
 Plug 'nono/jquery.vim'
 
+"Make JSON prettier
+Plug 'elzr/vim-json'
+
 " ##############
 " # Ruby Stuff #
 " ##############
@@ -85,7 +88,7 @@ Plug 'nono/jquery.vim'
 Plug 'slim-template/vim-slim'
 
 " Makes your ruby code match standard when you save
-Plug 'vim-rubyformat'
+"Plug 'vim-rubyformat'
 
 " Rails
 Plug 'tpope/vim-rails'
@@ -93,12 +96,21 @@ Plug 'tpope/vim-rails'
 " Ruby end of line matching
 Plug 'tpope/vim-endwise'
 
+" ##################
+" # Assembly Stuff #
+" ##################
+
+" Assembly syntax files
+Plug 'Shirk/vim-gas'
+
 " #############
 " # SQL Stuff #
 " #############
 
 " Auto capitalization of SQL keyword when in SQL files
 Plug 'hjkatz/sql_iabbr.vim', { 'for': 'sql' }
+
+Plug 'tpope/vim-dadbod'
 
 call plug#end()
 
@@ -173,7 +185,8 @@ set expandtab
 set shiftwidth=4
 
 " For ruby on rails dev automatically changes the line spacing
-autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2
+autocmd FileType eruby setlocal expandtab tabstop=2 shiftwidth=2
 
 " Deletes all trailing white space on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -327,37 +340,6 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-
-"===================================================================================================
-
-" Syntastic
-source /etc/profile.d/vimrc/plugins/syntastic.vim
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 1
-let g:syntastic_check_on_open            = 1
-let g:syntastic_auto_jump                = 3
-let g:syntastic_check_on_wq              = 0
-let g:syntastic_auto_jump                = 1
-let g:syntastic_error_symbol             = "✗"
-let g:syntastic_style_error_symbol       = "✗"
-let g:syntastic_warning_symbol           = "⚠"
-let g:syntastic_style_warning_symbol     = "⚠"
-let g:syntastic_typescript_checkers      = ["tslint"]
-let g:syntastic_typescript_tslint_args   = "--config ~/.tslint.json"
-let g:syntastic_mode_map = {
-  \ "mode": "passive",
-  \ "active_filetypes": ["typescript"] }
-let g:syntastic_eruby_ruby_quiet_messages =
-  \ {'regex': 'possibly useless use of a variable in void context'}
-
-au Filetype javascript let g:syntastic_aggregate_errors=1
-au Filetype php let g:syntastic_aggregate_errors=0
-au Filetype perl let g:syntastic_aggregate_errors=0
-au Filetype perl nnoremap <silent> <F7> :call PerlTidy()<CR>
 
 "===================================================================================================
 
