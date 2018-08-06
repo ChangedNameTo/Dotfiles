@@ -77,6 +77,9 @@ Plug '1995eaton/vim-better-javascript-completion'
 "jQuery Syntax
 Plug 'nono/jquery.vim'
 
+"Make JSON prettier
+Plug 'elzr/vim-json'
+
 " ##############
 " # Ruby Stuff #
 " ##############
@@ -84,11 +87,21 @@ Plug 'nono/jquery.vim'
 " Slim syntax highlighting
 Plug 'slim-template/vim-slim'
 
+" Makes your ruby code match standard when you save
+"Plug 'vim-rubyformat'
+
 " Rails
 Plug 'tpope/vim-rails'
 
 " Ruby end of line matching
 Plug 'tpope/vim-endwise'
+
+" ##################
+" # Assembly Stuff #
+" ##################
+
+" Assembly syntax files
+Plug 'Shirk/vim-gas'
 
 " #############
 " # SQL Stuff #
@@ -96,6 +109,8 @@ Plug 'tpope/vim-endwise'
 
 " Auto capitalization of SQL keyword when in SQL files
 Plug 'hjkatz/sql_iabbr.vim', { 'for': 'sql' }
+
+Plug 'tpope/vim-dadbod'
 
 call plug#end()
 
@@ -170,7 +185,8 @@ set expandtab
 set shiftwidth=4
 
 " For ruby on rails dev automatically changes the line spacing
-autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2
+autocmd FileType eruby setlocal expandtab tabstop=2 shiftwidth=2
 
 " Deletes all trailing white space on save
 autocmd BufWritePre * :%s/\s\+$//e
