@@ -89,11 +89,7 @@ alias aa=applyalters
 alias party="~/terminal-parrot/./parrot -delay 50"
 alias gadd="git add . && git status"
 alias gdiff="git diff --cached"
-<<<<<<< Updated upstream
-alias clear="clear && git status && ls && printf '\n'"
-=======
 alias clear="clear; git status; ls"
->>>>>>> Stashed changes
 alias glog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat"
 alias top="htop"
 alias aa_ava="su -c '~/linux_utils/apply_alters/apply_alters.pl --webroot=/var/www/vhosts/avalon.will.neadwerx.com --apply_all_unversioned --automate'"
