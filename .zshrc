@@ -180,7 +180,7 @@ function zsh_stats() {
 #updates .db and .customer files (credit to David Wright for inspiration)
 #usage: cust {customer} {db version OR ticket (if a ticket DB exists)}
 #if no second argument is supplied, uses customer named DB
-cust() {
+function cust() {
     first_char="$(echo $2 | head -c 1)"
 
     #versioned databases default to {customer}_XERP-{ticket #}
