@@ -1,3 +1,9 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/plugged')
 
 " ####################
@@ -89,6 +95,12 @@ Plug 'slim-template/vim-slim'
 
 " Makes your ruby code match standard when you save
 "Plug 'vim-rubyformat'
+
+" rSpec syntax highlighting
+Plug 'keith/rspec.vim'
+
+" Ruby folding support
+Plug 'vim-ruby/vim-ruby'
 
 " Rails
 Plug 'tpope/vim-rails'
@@ -187,6 +199,9 @@ set shiftwidth=4
 " For ruby on rails dev automatically changes the line spacing
 autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2
 autocmd FileType eruby setlocal expandtab tabstop=2 shiftwidth=2
+
+" For ruby on rails dev automatically changes the line spacing
+autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2
 
 " Deletes all trailing white space on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -344,7 +359,7 @@ au Syntax * RainbowParenthesesLoadBraces
 "===================================================================================================
 
 " Syntastic
-" source /etc/profile.d/vimrc/plugins/syntastic.vim
+source /etc/profile.d/vimrc/plugins/syntastic.vim
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -446,6 +461,10 @@ let g:easy_align_delimiters =
     \       'right_margin':  0,
     \       'stick_to_left': 0
     \      },
+    \ '"': {
+    \       'pattern':       '"',
+    \       'ignore_groups': []
+    \      }
     \ }
 
 "===================================================================================================

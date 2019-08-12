@@ -81,7 +81,7 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 alias mtaile='multitail -CS php --mergeall /var/log/httpd/$1*-error_log'
-alias sshw='ssh will@will.neadwerx.com -p 22232'
+alias sshw='ssh will@will.neadwerx.com -p 22232 -X'
 alias ll="ls -la"
 alias zshconfig="vim ~/.zshrc"
 alias vimconfig="vim ~/.vimrc"
@@ -100,6 +100,9 @@ alias beth="sudo puppet agent -t"
 alias dbex="./auxutils/db_explorer.pl"
 alias install_sch="sudo ./perl/scheduler/install_scheduler.sh --auto"
 alias clkear="clear"
+alias db_thd="pgcli -U support -h hera.neadwerx.com -d thd"
+alias agf="ag --ignore-dir build --ignore-dir sql --ignore-dir common --ignore-dir test"
+alias zshistory="vim ~/.zsh_history"
 
 function applyalters()
 {
@@ -122,7 +125,6 @@ function applyalters()
         --apply_all_unversioned \
         $test_file
 }
-<<<<<<< Updated upstream
 
 # JS fix fixes all of the files marked by the file path for you so you don't have
 # to write out the entire function yourself
@@ -155,8 +157,6 @@ function v () {
     }
 }
 
-=======
->>>>>>> Stashed changes
 # Tail access log of site starting with a string
 # e.g.: taila ises   (tails access log of ises.*.neadwerx.com)
 function taila () {
@@ -278,3 +278,5 @@ function extract () {
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+eval $(thefuck --alias)

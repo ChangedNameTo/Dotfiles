@@ -23,3 +23,8 @@
 	newHighlight = green bold 22
 [diff-so-fancy]
 	stripLeadingSymbols = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
